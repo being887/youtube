@@ -16,23 +16,33 @@ app.get('/health', (req, res) => {
   res.status(200).send('200 OK');
 });
 
-app.post('/download', (req, res) => {
+app.post('/download', async (req, res) => {
   const videoUrl = req.body.url;
   console.log(videoUrl);
 
-  const youtubeDl = ytdl(videoUrl);
-  youtubeDl.on('progress', (chunkLength, downloaded, total) => {
-    console.log(`Downloaded ${downloaded} bytes of ${total}`);
-  });
+  try {
+    const youtubeDl = ytdl(videoUrl);
+    youtubeDl.on('progress', (chunkLength, downloaded, total) => {
+      console.log(`Downloaded ${downloaded} bytes of ${total}`);
+    });
 
-  youtubeDl.on('end', () => {
-    console.log('Download finished');
-    res.download('video.mp4');
-  });
+    youtubeDl.on('end', () => {
+      console.log('Download finished');
+      res.download('video.mp4');
+    });
 
-  youtubeDl.pipe(fs.createWriteStream('video.mp4'));
-  
+    youtubeDl.pipe(fs.createWriteStream('video.mp4'));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error downloading video');
+  }
 });
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
