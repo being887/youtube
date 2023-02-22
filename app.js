@@ -12,6 +12,9 @@ app.set("view engine","hbs")
 app.get("/",(req,res)=>{
   res.render("index")
 })
+app.get('/health', (req, res) => {
+  res.status(200).send('Server is healthy');
+});
 
 app.post('/download', (req, res) => {
   const videoUrl = req.body.url;
