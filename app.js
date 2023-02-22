@@ -13,7 +13,7 @@ app.get("/",(req,res)=>{
   res.render("index")
 })
 app.get('/health', (req, res) => {
-  res.status(200).send('Server is healthy');
+  res.status(200).send('200 OK');
 });
 
 app.post('/download', (req, res) => {
