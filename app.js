@@ -18,26 +18,23 @@ app.get('/health', (req, res) => {
 
 app.post('/download', async (req, res) => {
   const videoUrl = req.body.url;
-  console.log(videoUrl);
+  const format = req.body.format;
+  const quality = req.body.quality;
+  const filter = (format && quality) ? `format=${format}+${quality}` : 'audioandvideo';
 
   try {
-    const youtubeDl = ytdl(videoUrl);
-    youtubeDl.on('progress', (chunkLength, downloaded, total) => {
-      console.log(`Downloaded ${downloaded} bytes of ${total}`);
-    });
-
-    youtubeDl.on('end', () => {
-      console.log('Download finished');
-      res.download('video.mp4');
-    });
-
-    youtubeDl.pipe(fs.createWriteStream('video.mp4'));
+    const info = await ytdl.getInfo(videoUrl);
+    const videoTitle = info.videoDetails.title.replace(/[^\w\s]/gi, '');
+  
+    res.setHeader('Content-disposition',`attachment; filename="${videoTitle}.mp4"`);
+    const youtubeDl = ytdl(videoUrl, { filter });
+    youtubeDl.pipe(res);
+  
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).send('Error downloading video');
   }
 });
-
 
 
 
