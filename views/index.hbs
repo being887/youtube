@@ -2,12 +2,77 @@
 <html>
 <head>
 	<title>Submit URL</title>
+	<style>
+		form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+label {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#url-input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 400px;
+  font-size: 18px;
+}
+
+#quality-select {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 400px;
+  font-size: 18px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0069d9;
+}
+
+	</style>
 </head>
 <body>
-	<form action="/download" method="POST">
-		<label for="url-input">Enter URL1:</label>
+	<form id="download-form" action="/download" method="POST">
+		<label for="url-input">Enter URL:</label>
 		<input type="url" id="url-input" name="url">
-		<button type="submit">Submit</button>
+		<label for="quality-select">Select quality:</label>
+		<select id="quality-select" name="quality">
+			 <option value="360p">144p</option>
+			<option value="360">360p</option>
+			<option value="480">480p</option>
+			<option value="720">720p</option>
+		</select>
+		<button type="submit">Download</button>
 	</form>
+	<script>
+  var form = document.getElementById('download-form');
+  form.addEventListener('submit', function() {
+    var message = document.createElement('p');
+    message.textContent = 'Download will start in 5 seconds...';
+    form.appendChild(message);
+
+    setTimeout(function() {
+      form.removeChild(message);
+    }, 4000);
+  });
+</script>
 </body>
 </html>
