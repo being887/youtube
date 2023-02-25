@@ -1,78 +1,161 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Youtube Video Downloader</title>
+    <title>YouTube Downloader</title>
+    <meta charset=">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        .container {
+            margin-top: 30px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background-color: #f44336;
+            border-color: #f44336;
+            padding: 10px 30px;
+            font-size: 16px;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+        .form-control {
+            height: 50px;
+            font-size: 18px;
+        }
+        .form-group label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group input[type="text"] {
+            border-radius: 5px;
+        }
+        table td, table th {
+            vertical-align: middle !important;
+        }
+        table thead th {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        ul {
+            margin-top: 20px;
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 18px;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
 	<style>
-		form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-}
-
-label {
-  font-size: 20px;
-  margin-top: 20px;
-}
-
-#url-input {
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 400px;
-  font-size: 18px;
-}
-
-#quality-select {
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 400px;
-  font-size: 18px;
-}
-
-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0069d9;
-}
-
+		.navbar-nav {
+			margin-left: auto;
+		}
 	</style>
+
 </head>
 <body>
-	<form id="download-form" action="/download" method="POST">
-		<label for="url-input">Enter URL:</label>
-		<input type="url" id="url-input" name="url">
-		<label for="quality-select">Select quality:</label>
-		<select id="quality-select" name="quality">
-			 <option value="360p">144p</option>
-			<option value="360">360p</option>
-			<option value="480">480p</option>
-			<option value="720">720p</option>
-		</select>
-		<button type="submit">Download</button>
-	</form>
-	<script>
-  var form = document.getElementById('download-form');
-  form.addEventListener('submit', function() {
-    var message = document.createElement('p');
-    message.textContent = 'Download will start in 5 seconds...';
-    form.appendChild(message);
-
-    setTimeout(function() {
-      form.removeChild(message);
-    }, 4000);
-  });
-</script>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">YouTube Downloader</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="https://ssyoutube.com/en11/download-from-tiktok">Tiktok Video Downloader</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://ssyoutube.com/en23/download-from-instagram">Instagram Video Downloader</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://ssyoutube.com/en20/how-to-download-facebook-video">Facebook Video Downloader</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://ssyoutube.com/en11/download-from-twitter">Twitter Video Downloader</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>YouTube Downloader</h1>
+        <form action="/download2" method="post">
+            <div class="form-group">
+                <label for="url">YouTube URL:Best available video with audio</label>
+                <input type="text" name="url" id="url" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Download</button>
+        </form>
+        <form action="/video" method="post">
+            <div class="form-group">
+                <label for="url">YouTube URL:if you want to download only video with any quality you want</label>
+                <input type="text" name="url" id="url" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Show  details</button>
+        </form>
+        
+   <table class="table">
+            <thead>
+                <tr>
+                
+                    <th>Thumbnail</th>
+                    <th>Title</th>
+                    <th>Quality Label</th>
+                     <th>Download</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each  videoData}}
+                <tr>
+                    
+                  <td><img src="{{this.thumbnail}}"></td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.qualityLabel}}</td>
+                    <td>
+                     <form method="POST" action="/download1">
+                     <input type="hidden" name="url" value="{{this.url}}">
+                     <input type="hidden"  name="quality" value="{{this.qualityLabel}}">
+                     <button type="submit">Download</button>
+                     </form>
+                   </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+       
+        <form action="/download3" method="post">
+            <div class="form-group">
+                <label for="url">YouTube URL: if you want to download only audio</label>
+                <input type="text" name="url" id="url" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Download Audio</button>
+        </form>
+ <form action="/download4" method="post">
+            <div class="form-group">
+                <label for="url">YouTube URL:if you want to see keywords of youtube video</label>
+                <input type="text" name="url" id="url" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Show Keywods</button>
+        </form>
+       
+<ul>
+  {{#each keywords}}
+  <li>{{this}}</li>
+  {{/each}}
+</ul>
+        
+    </div>
 </body>
 </html>
